@@ -462,6 +462,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -3184,7 +3197,130 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Corvette_Spritelist_0: 501708517807611027
+      Corvette_Spritelist_1: 6242814197866767768
+      Corvette_Spritelist_10: 2035469927383209908
+      Corvette_Spritelist_100: -143937755863422082
+      Corvette_Spritelist_101: 3493868689481603193
+      Corvette_Spritelist_102: -3110616152129472761
+      Corvette_Spritelist_103: 7828573639429524666
+      Corvette_Spritelist_104: 2284169446594178969
+      Corvette_Spritelist_105: -8695371213417136835
+      Corvette_Spritelist_106: 7061791597832182392
+      Corvette_Spritelist_107: -5139133307200828900
+      Corvette_Spritelist_108: 257728880821756548
+      Corvette_Spritelist_109: 5427361014268620003
+      Corvette_Spritelist_11: -3268053713294672859
+      Corvette_Spritelist_110: 7779045661954744802
+      Corvette_Spritelist_111: -2396646899985358056
+      Corvette_Spritelist_112: 8013343208420289073
+      Corvette_Spritelist_113: -1231135121363545033
+      Corvette_Spritelist_114: -6408453272972145512
+      Corvette_Spritelist_115: -6803622058029598309
+      Corvette_Spritelist_116: -1647993329970695267
+      Corvette_Spritelist_117: 3194538283850740915
+      Corvette_Spritelist_118: -8339813669000811387
+      Corvette_Spritelist_119: -3354122164467787246
+      Corvette_Spritelist_12: 3132940709795487341
+      Corvette_Spritelist_120: 7108211183218215028
+      Corvette_Spritelist_121: 2813984073795248677
+      Corvette_Spritelist_122: -4771468517643039239
+      Corvette_Spritelist_13: 4335486535755602513
+      Corvette_Spritelist_14: 1735860061466787588
+      Corvette_Spritelist_15: -1891894327344118249
+      Corvette_Spritelist_16: 4103635319775104581
+      Corvette_Spritelist_17: -7494368436508370327
+      Corvette_Spritelist_18: -7408012098914098924
+      Corvette_Spritelist_19: 3547925430621214393
+      Corvette_Spritelist_2: -1304256108791496877
+      Corvette_Spritelist_20: 1434392977214714670
+      Corvette_Spritelist_21: -5824122788494479225
+      Corvette_Spritelist_22: -4407997040931936812
+      Corvette_Spritelist_23: -2304562839522984064
+      Corvette_Spritelist_24: -671660030976265420
+      Corvette_Spritelist_25: -6735345102614273762
+      Corvette_Spritelist_26: -2492028567025999079
+      Corvette_Spritelist_27: -8763759426308624006
+      Corvette_Spritelist_28: 1799876561891194922
+      Corvette_Spritelist_29: 6132636962893771262
+      Corvette_Spritelist_3: -5070334394829672574
+      Corvette_Spritelist_30: 4406205170125185845
+      Corvette_Spritelist_31: -8120903458900521124
+      Corvette_Spritelist_32: -4865875693943555148
+      Corvette_Spritelist_33: -391880354763073089
+      Corvette_Spritelist_34: 4029916121977344215
+      Corvette_Spritelist_35: 7722608585825604669
+      Corvette_Spritelist_36: 1621096690863316186
+      Corvette_Spritelist_37: -2176099047546587698
+      Corvette_Spritelist_38: 2888180038397224405
+      Corvette_Spritelist_39: -7200937222947996496
+      Corvette_Spritelist_4: -7032911321831901732
+      Corvette_Spritelist_40: 8030202690420797393
+      Corvette_Spritelist_41: -3862262215471401521
+      Corvette_Spritelist_42: -7155067480948943666
+      Corvette_Spritelist_43: 5850264978601101140
+      Corvette_Spritelist_44: 5184656978498519217
+      Corvette_Spritelist_45: 5206365014325317955
+      Corvette_Spritelist_46: -2670529620941664330
+      Corvette_Spritelist_47: -8109271929840454969
+      Corvette_Spritelist_48: -7279953207761424893
+      Corvette_Spritelist_49: -2850010433340621115
+      Corvette_Spritelist_5: -852779200062942201
+      Corvette_Spritelist_50: -8711250007303642716
+      Corvette_Spritelist_51: -3557215912809925702
+      Corvette_Spritelist_52: -5156048257381367352
+      Corvette_Spritelist_53: 4261432861607940884
+      Corvette_Spritelist_54: -753338802325933645
+      Corvette_Spritelist_55: 8759149895210398408
+      Corvette_Spritelist_56: -3583348253226952619
+      Corvette_Spritelist_57: 6785249042070361954
+      Corvette_Spritelist_58: 7455703388191870709
+      Corvette_Spritelist_59: -4287827503873562491
+      Corvette_Spritelist_6: -3726844368054190069
+      Corvette_Spritelist_60: -7709816469456967239
+      Corvette_Spritelist_61: 268689072655277189
+      Corvette_Spritelist_62: 7190965675913404195
+      Corvette_Spritelist_63: -7353792807022483441
+      Corvette_Spritelist_64: -2648720804990436206
+      Corvette_Spritelist_65: 3342212538565451568
+      Corvette_Spritelist_66: -8661606954406011438
+      Corvette_Spritelist_67: -6755012009841406744
+      Corvette_Spritelist_68: 7356543885772031698
+      Corvette_Spritelist_69: -4767015353138766142
+      Corvette_Spritelist_7: -8410447270143571661
+      Corvette_Spritelist_70: -617957451641312474
+      Corvette_Spritelist_71: -5852429510299493171
+      Corvette_Spritelist_72: -6011484018176778633
+      Corvette_Spritelist_73: -3261056512454389494
+      Corvette_Spritelist_74: 2460729567979328982
+      Corvette_Spritelist_75: 1209197442839136250
+      Corvette_Spritelist_76: -5503883230695422787
+      Corvette_Spritelist_77: 7242520330765322710
+      Corvette_Spritelist_78: 5623605217555364241
+      Corvette_Spritelist_79: 8003804177555973119
+      Corvette_Spritelist_8: -8309403075492381232
+      Corvette_Spritelist_80: -9022341158591845930
+      Corvette_Spritelist_81: 7024961237662515361
+      Corvette_Spritelist_82: -7393823448000279600
+      Corvette_Spritelist_83: -2874865402089088546
+      Corvette_Spritelist_84: 2692855600149481916
+      Corvette_Spritelist_85: 6838623443870550796
+      Corvette_Spritelist_86: -535471050967330341
+      Corvette_Spritelist_87: 5232660888989701504
+      Corvette_Spritelist_88: 5097939915258051878
+      Corvette_Spritelist_89: -8876164672764353920
+      Corvette_Spritelist_9: -2791798892373805876
+      Corvette_Spritelist_90: -6072444503058808931
+      Corvette_Spritelist_91: -6210442608860421003
+      Corvette_Spritelist_92: -4499259876131805830
+      Corvette_Spritelist_93: 8150186516167667744
+      Corvette_Spritelist_94: 1367819925878893478
+      Corvette_Spritelist_95: 8478253569420454860
+      Corvette_Spritelist_96: -4563361387627028772
+      Corvette_Spritelist_97: 2381811585983545661
+      Corvette_Spritelist_98: -775143265450744934
+      Corvette_Spritelist_99: 7386188529945166032
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

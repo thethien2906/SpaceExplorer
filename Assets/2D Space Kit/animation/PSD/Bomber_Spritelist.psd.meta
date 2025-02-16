@@ -369,6 +369,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -2409,7 +2422,99 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bomber_Spritelist_0: -1057074347389312472
+      Bomber_Spritelist_1: 8291369618727747627
+      Bomber_Spritelist_10: 1169767637235604903
+      Bomber_Spritelist_11: 8666373005247245561
+      Bomber_Spritelist_12: 1224289643082531402
+      Bomber_Spritelist_13: 8238063003113224776
+      Bomber_Spritelist_14: -605270507302009763
+      Bomber_Spritelist_15: -4136482629971376509
+      Bomber_Spritelist_16: -6566228649551269753
+      Bomber_Spritelist_17: -2226009175921965853
+      Bomber_Spritelist_18: 2574692040897609880
+      Bomber_Spritelist_19: 4949867291847733412
+      Bomber_Spritelist_2: 1024122513531466258
+      Bomber_Spritelist_20: -1701611054807587379
+      Bomber_Spritelist_21: -6874431094052621331
+      Bomber_Spritelist_22: -7883457187639290671
+      Bomber_Spritelist_23: -6664971406449425458
+      Bomber_Spritelist_24: 6141646925271137872
+      Bomber_Spritelist_25: -3333093386231918990
+      Bomber_Spritelist_26: 3001008318128854337
+      Bomber_Spritelist_27: 3465718328589451399
+      Bomber_Spritelist_28: 7511933942227244046
+      Bomber_Spritelist_29: -3957748259411931948
+      Bomber_Spritelist_3: -3605263869058166190
+      Bomber_Spritelist_30: 4398546831658325662
+      Bomber_Spritelist_31: -8962702099889597645
+      Bomber_Spritelist_32: -6818134228591438730
+      Bomber_Spritelist_33: 2830187048272880108
+      Bomber_Spritelist_34: 7997166463477175720
+      Bomber_Spritelist_35: -8223379166199562357
+      Bomber_Spritelist_36: -1360678734570122401
+      Bomber_Spritelist_37: -541722935026957540
+      Bomber_Spritelist_38: 7083176225165834742
+      Bomber_Spritelist_39: -8514174879386273516
+      Bomber_Spritelist_4: 2954193002460994682
+      Bomber_Spritelist_40: -6162418171380797166
+      Bomber_Spritelist_41: -8492255739425913514
+      Bomber_Spritelist_42: -881263930300742201
+      Bomber_Spritelist_43: 4784356718380958388
+      Bomber_Spritelist_44: -4151492222736025384
+      Bomber_Spritelist_45: 2730711717425471165
+      Bomber_Spritelist_46: 4245398139159963326
+      Bomber_Spritelist_47: 4020145256648866276
+      Bomber_Spritelist_48: 4713130100519008093
+      Bomber_Spritelist_49: -8632900716970695890
+      Bomber_Spritelist_5: -6801994155729649663
+      Bomber_Spritelist_50: 662423262938831995
+      Bomber_Spritelist_51: 1905893523201810284
+      Bomber_Spritelist_52: 3854433312391057664
+      Bomber_Spritelist_53: -3279001043683780013
+      Bomber_Spritelist_54: -2793325712865001209
+      Bomber_Spritelist_55: 5146297261300947991
+      Bomber_Spritelist_56: -1061710941478718452
+      Bomber_Spritelist_57: -124412742056172807
+      Bomber_Spritelist_58: 5054642957599259625
+      Bomber_Spritelist_59: 7570573349276245733
+      Bomber_Spritelist_6: -1499580017539819350
+      Bomber_Spritelist_60: -4364938425206292958
+      Bomber_Spritelist_61: -1690533644668428204
+      Bomber_Spritelist_62: 8499440184969013917
+      Bomber_Spritelist_63: 41576139893587479
+      Bomber_Spritelist_64: -4987289220292678009
+      Bomber_Spritelist_65: 460992236372228115
+      Bomber_Spritelist_66: 8874348523307476933
+      Bomber_Spritelist_67: -3814423465828743615
+      Bomber_Spritelist_68: -3399134173413337848
+      Bomber_Spritelist_69: -2187298882944938812
+      Bomber_Spritelist_7: -4197273425072354009
+      Bomber_Spritelist_70: -4005337363416594181
+      Bomber_Spritelist_71: 115163334034310545
+      Bomber_Spritelist_72: 3890438407468591274
+      Bomber_Spritelist_73: 7443570123761542503
+      Bomber_Spritelist_74: 8367782216165486876
+      Bomber_Spritelist_75: 3164873092876206426
+      Bomber_Spritelist_76: -6849921746036404574
+      Bomber_Spritelist_77: 7622450141418678712
+      Bomber_Spritelist_78: 2817784636622777164
+      Bomber_Spritelist_79: -7712408411815193756
+      Bomber_Spritelist_8: -1648755948835183957
+      Bomber_Spritelist_80: -8490855395963870255
+      Bomber_Spritelist_81: -8867032236262990003
+      Bomber_Spritelist_82: -847000077455551068
+      Bomber_Spritelist_83: 7945282213676155852
+      Bomber_Spritelist_84: 7101686972787485354
+      Bomber_Spritelist_85: 427883086283857479
+      Bomber_Spritelist_86: -1433071722621728384
+      Bomber_Spritelist_87: 7006977740051646691
+      Bomber_Spritelist_88: -3579179098386892443
+      Bomber_Spritelist_89: 6352256607346665160
+      Bomber_Spritelist_9: 6842879968574826331
+      Bomber_Spritelist_90: 4650782334100732236
+      Bomber_Spritelist_91: -7175913530734377297
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

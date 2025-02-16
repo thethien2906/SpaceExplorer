@@ -1,12 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameObject enemyPrefab;
-    public float minInstantiateValue;
-    public float maxInstantiateValue;
-    public float enemyDestroyTime;   
+    public GameObject[] enemyRefab;
+    public float ExistTime = 20f;
+    public float SpawnLevel;
+    public float spawnRate;
+    public float spawnRadius = 20f;
+    public float minSpawnRadius = 10f;
     [Header("Particle Effects")]
     public GameObject explosion;
 
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour
         startMenu.SetActive(true);
         pauseMenu.SetActive(false);
         Time.timeScale = 0f;
-        InvokeRepeating("InstaniateEnemy", 1f, 2f);
+        InvokeRepeating("IntantianteEnemy", 1f, 2f);
     }
     private void Update()
     {
@@ -33,12 +35,30 @@ public class GameManager : MonoBehaviour
             PauseGame(true);
         }
     }
-    private void InstaniateEnemy()
+    void IntantianteEnemy()
     {
-        Vector3 enemypos = new Vector3(Random.Range(minInstantiateValue, maxInstantiateValue), 6f);
-        GameObject eneymy = Instantiate(enemyPrefab, enemypos, Quaternion.Euler(0f, 0f,180f));
-        Destroy(eneymy, enemyDestroyTime);
+        int randomIndex = Random.Range(0, enemyRefab.Length);
+        GameObject enemy = enemyRefab[randomIndex];
+
+        Vector3 enemyPos = GetValidSpawnPosition();
+        GameObject asteroid = Instantiate(enemy, enemyPos, Quaternion.Euler(0, 0, 180));
+        Destroy(asteroid, ExistTime);
     }
+
+    Vector3 GetValidSpawnPosition()
+    {
+
+
+        Vector3 centerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 spawnPosition;
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        float randomDistance = Random.Range(minSpawnRadius, spawnRadius);
+        Vector2 randomOffset = randomDirection * randomDistance;
+        spawnPosition = centerPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
+
+        return spawnPosition;
+    }
+
     public void StartGameButton()
     {
         startMenu.SetActive(false);
@@ -51,7 +71,7 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
         }
-        else 
+        else
         {
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
@@ -62,6 +82,6 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-   
+
 
 }
