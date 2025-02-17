@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,25 +10,53 @@ public class GameManager : MonoBehaviour
     public float spawnRate;
     public float spawnRadius = 20f;
     public float minSpawnRadius = 10f;
+
+
+    [Header("Game Settings")]
+    public int maxLives = 3;
+    private int currentLives;
+    public float invincibilityDuration = 2f; 
+    private bool isPlayerInvincible = false;
+
+
     [Header("Particle Effects")]
     public GameObject explosion;
 
     [Header("Panels")]
     public GameObject startMenu;
     public GameObject pauseMenu;
+    public GameObject gameOverPanel; 
 
+    // Luu vi tri ban dau
+    private Vector3 initialPlayerPosition;
+    private Quaternion initialPlayerRotation;
+
+
+    private GameObject player;
+    public GameObject playerPrefab;
+
+
+    // List to keep track of spawned enemies
+    private List<GameObject> activeEnemies = new List<GameObject>();
+    // List to keep track of missles
+    private List<GameObject> activeMissiles = new List<GameObject>();
     private void Awake()
     {
         instance = this;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        startMenu.SetActive(true);
-        pauseMenu.SetActive(false);
-        Time.timeScale = 0f;
-        InvokeRepeating("IntantianteEnemy", 1f, 2f);
+        // Store the initial player position and rotation
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            initialPlayerPosition = player.transform.position;
+            initialPlayerRotation = player.transform.rotation;
+        }
+        InitializeGame();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -35,35 +64,151 @@ public class GameManager : MonoBehaviour
             PauseGame(true);
         }
     }
+
+    void InitializeGame()
+    {
+        startMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+        gameOverPanel.SetActive(false);
+        Time.timeScale = 0f;
+        currentLives = maxLives;
+        CancelInvoke("IntantianteEnemy");
+        InvokeRepeating("IntantianteEnemy", 1f, 2f);
+    }
+    
+    public void OnPlayerHit()
+    {
+        if (isPlayerInvincible) return;
+
+        currentLives--;
+        if (currentLives <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            StartCoroutine(PlayerInvincibilityCoroutine());
+        }
+    }
+
+    private System.Collections.IEnumerator PlayerInvincibilityCoroutine()
+    {
+        isPlayerInvincible = true;
+        SpriteRenderer playerSprite = player.GetComponentInChildren<SpriteRenderer>();
+        float flashInterval = 0.2f;
+
+        for (float i = 0; i < invincibilityDuration; i += flashInterval)
+        {
+            if (playerSprite != null)
+                playerSprite.enabled = !playerSprite.enabled;
+            yield return new WaitForSeconds(flashInterval);
+        }
+
+        if (playerSprite != null)
+            playerSprite.enabled = true;
+
+        isPlayerInvincible = false;
+    }
+
+    void GameOver()
+    {
+        Time.timeScale = 0f;
+        gameOverPanel.SetActive(true);
+        CancelInvoke("IntantianteEnemy");
+    }
     void IntantianteEnemy()
     {
         int randomIndex = Random.Range(0, enemyRefab.Length);
         GameObject enemy = enemyRefab[randomIndex];
-
         Vector3 enemyPos = GetValidSpawnPosition();
         GameObject asteroid = Instantiate(enemy, enemyPos, Quaternion.Euler(0, 0, 180));
+        activeEnemies.Add(asteroid);
         Destroy(asteroid, ExistTime);
     }
 
     Vector3 GetValidSpawnPosition()
     {
+        if (player == null) return Vector3.zero;
 
-
-        Vector3 centerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-        Vector3 spawnPosition;
+        Vector3 centerPosition = player.transform.position;
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         float randomDistance = Random.Range(minSpawnRadius, spawnRadius);
         Vector2 randomOffset = randomDirection * randomDistance;
-        spawnPosition = centerPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
-
-        return spawnPosition;
+        return centerPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
     }
+    // track missiles
+    public void RegisterMissile(GameObject missile)
+    {
+        activeMissiles.Add(missile);
+    }
+    void ResetGameState()
+    {
+        // Clear all active enemies and missiles
+        foreach (GameObject enemy in activeEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
+        }
+        activeEnemies.Clear();
+
+        foreach (GameObject missile in activeMissiles)
+        {
+            if (missile != null)
+            {
+                Destroy(missile);
+            }
+        }
+        activeMissiles.Clear();
+
+        // Check if player exists; if not, instantiate new one
+        if (player == null)
+        {
+            player = Instantiate(playerPrefab, initialPlayerPosition, initialPlayerRotation);
+        }
+        else
+        {
+            // Reset position and rotation
+            player.transform.position = initialPlayerPosition;
+            player.transform.rotation = initialPlayerRotation;
+
+            // Reset Rigidbody
+            Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+
+            // Reset player sprite visibility
+            SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+            if (playerSprite != null)
+                playerSprite.enabled = true;
+        }
+
+        // Reset lives
+        currentLives = maxLives;
+        isPlayerInvincible = false;
+
+        // Reset score
+        ScoreScript.scoreValue = 0;
+
+        // Cancel and restart enemy spawning
+        CancelInvoke("IntantianteEnemy");
+        InvokeRepeating("IntantianteEnemy", 1f, 2f);
+    }
+
+
 
     public void StartGameButton()
     {
+        ResetGameState();
         startMenu.SetActive(false);
+        gameOverPanel.SetActive(false);
         Time.timeScale = 1f;
     }
+
     public void PauseGame(bool isPaused)
     {
         if (isPaused)
@@ -76,12 +221,24 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
         }
-
     }
+
     public void QuitGame()
     {
         Application.Quit();
     }
 
+    public void ReturnToMainMenu()
+    {
+        ResetGameState();
+        startMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+        gameOverPanel.SetActive(false);
+        Time.timeScale = 0f;
+    }
 
+    public int GetCurrentLives()
+    {
+        return currentLives;
+    }
 }

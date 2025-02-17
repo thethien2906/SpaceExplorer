@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    private Rigidbody2D rb;
+    private Animator anim;
+
+    public bool isMoving;
+    private float turnInput;
+
+    [Header("Movement")]
     public float speed = 10f;
     public GameObject missile;
     public Transform missleSpawnPosition;
@@ -15,9 +23,18 @@ public class PlayerController : MonoBehaviour
     private float nextFireTime = 0f;
 
     private float missileSpeed = 25f;
-
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+    }
+    private void Start()
+    {
+        InvokeRepeating(nameof(FireMissile), 1.5f, fireRate); // ban lien tuc
+    }
     private void Update()
     {
+        PlayerAnimation();
         PlayerMovement();
         if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
         {
@@ -35,6 +52,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void PlayerAnimation()
+    {
+        anim.SetBool("isMoving",rb.linearVelocity.x != 0);
+        turnInput = Input.GetAxis("Horizontal"); // Get A/D or Left/Right Arrow input
+        anim.SetFloat("Turn", turnInput);
+    }
     private void PlayerMovement()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -78,6 +101,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = direction * missileSpeed;
         }
 
+        GameManager.instance.RegisterMissile(missileInstance);
         Destroy(missileInstance, destroyTime);
     }
 
@@ -92,14 +116,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))  
         {
-         
+            GameManager.instance.OnPlayerHit();
+            GameObject explosionEffect = Instantiate(GameManager.instance.explosion, transform.position, transform.rotation);
+            Destroy(explosionEffect, 2f);
+            Destroy(collision.gameObject);
             ScoreScript.scoreValue += ScoreScript.enemyPoint;
-            ScoreScript.scoreValue += ScoreScript.enemyPoint;
-            GameObject gm = Instantiate(GameManager.instance.explosion, transform.position, transform.rotation);
-            Destroy(gm, 2f);
-            Destroy(this.gameObject);
+            if (GameManager.instance.GetCurrentLives() <= 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
