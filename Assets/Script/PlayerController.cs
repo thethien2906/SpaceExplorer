@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public Transform missleSpawnPosition;
     public float destroyTime = 5f;
 
+    
     [Header("Fire Rate")]
     public float fireRate = 0.5f;
     private float nextFireTime = 0f;
@@ -92,6 +94,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+         
+            ScoreScript.scoreValue += ScoreScript.enemyPoint;
+            ScoreScript.scoreValue += ScoreScript.enemyPoint;
             GameObject gm = Instantiate(GameManager.instance.explosion, transform.position, transform.rotation);
             Destroy(gm, 2f);
             Destroy(this.gameObject);
