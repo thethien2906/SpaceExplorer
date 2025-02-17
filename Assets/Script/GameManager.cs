@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     public int maxLives = 3;
     private int currentLives;
-    public float invincibilityDuration = 2f; 
+    public float invincibilityDuration = 2f;
     private bool isPlayerInvincible = false;
 
 
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Panels")]
     public GameObject startMenu;
     public GameObject pauseMenu;
-    public GameObject gameOverPanel; 
+    public GameObject gameOverPanel;
 
     // Luu vi tri ban dau
     private Vector3 initialPlayerPosition;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     public GameObject playerPrefab;
 
+    public GameObject TrackingPosition;
 
     // List to keep track of spawned enemies
     private List<GameObject> activeEnemies = new List<GameObject>();
@@ -63,6 +65,10 @@ public class GameManager : MonoBehaviour
         {
             PauseGame(true);
         }
+        if (Time.timeScale != 0f)
+        {
+            TimeController.timeValue += Time.deltaTime;  // Cập nhật thời gian khi game không pause
+        }
     }
 
     void InitializeGame()
@@ -75,7 +81,7 @@ public class GameManager : MonoBehaviour
         CancelInvoke("IntantianteEnemy");
         InvokeRepeating("IntantianteEnemy", 1f, 2f);
     }
-    
+
     public void OnPlayerHit()
     {
         if (isPlayerInvincible) return;
@@ -115,27 +121,39 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         gameOverPanel.SetActive(true);
         CancelInvoke("IntantianteEnemy");
+        TimeController.timeValue = 0f;
     }
     void IntantianteEnemy()
     {
         int randomIndex = Random.Range(0, enemyRefab.Length);
         GameObject enemy = enemyRefab[randomIndex];
-        Vector3 enemyPos = GetValidSpawnPosition();
-        GameObject asteroid = Instantiate(enemy, enemyPos, Quaternion.Euler(0, 0, 180));
+
+        // Lấy vị trí spawn từ rìa trên cùng của camera
+        Vector3 enemyPos = GetEdgeSpawnPosition();
+
+        // Spawn asteroid ở vị trí xác định
+        GameObject asteroid = Instantiate(enemy, enemyPos, Quaternion.Euler(0, 0, 180));  // Xoay nếu cần
         activeEnemies.Add(asteroid);
+
+        // Hủy asteroid sau một khoảng thời gian
         Destroy(asteroid, ExistTime);
     }
 
-    Vector3 GetValidSpawnPosition()
+    // Hàm để lấy vị trí spawn ở rìa trên cùng của camera
+    // Hàm lấy vị trí spawn với giới hạn trục X
+    Vector3 GetEdgeSpawnPosition()
     {
-        if (player == null) return Vector3.zero;
 
-        Vector3 centerPosition = player.transform.position;
-        Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        float randomDistance = Random.Range(minSpawnRadius, spawnRadius);
-        Vector2 randomOffset = randomDirection * randomDistance;
-        return centerPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
+        Vector3 topEdge = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 1f, 0));
+
+
+        float minSpawnX = -10f;
+        float maxSpawnX = 10f;
+        float offsetX = Random.Range(minSpawnX, maxSpawnX);
+
+        return new Vector3(topEdge.x + offsetX, topEdge.y, 0);
     }
+
     // track missiles
     public void RegisterMissile(GameObject missile)
     {
@@ -196,7 +214,9 @@ public class GameManager : MonoBehaviour
 
         // Cancel and restart enemy spawning
         CancelInvoke("IntantianteEnemy");
-        InvokeRepeating("IntantianteEnemy", 1f, 2f);
+        InvokeRepeating("IntantianteEnemy", 1f, 0.1f);
+
+        TimeController.timeValue = 0f;
     }
 
 

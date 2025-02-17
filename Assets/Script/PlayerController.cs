@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public Transform missleSpawnPosition;
     public float destroyTime = 5f;
 
-    
+
     [Header("Fire Rate")]
     public float fireRate = 0.5f;
     private float nextFireTime = 0f;
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerAnimation()
     {
-        anim.SetBool("isMoving",rb.linearVelocity.x != 0);
+        anim.SetBool("isMoving", rb.linearVelocity.x != 0);
         turnInput = Input.GetAxis("Horizontal"); // Get A/D or Left/Right Arrow input
         anim.SetFloat("Turn", turnInput);
     }
@@ -62,61 +62,34 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime;
-        transform.Translate(movement);
+        Vector2 movement = new Vector2(horizontal, vertical).normalized * speed;
+        rb.linearVelocity = movement;
 
-        RotateToMouse();
     }
-    private void RotateToMouse()
-    {
-        if (Camera.main == null) return;
-
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-
-        Vector3 direction = (mousePosition - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
-    }
-
     private void FireMissile()
     {
-        if (Camera.main == null) return;
-
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-
-        Vector3 direction = (mousePosition - missleSpawnPosition.position).normalized;
+        Vector3 direction = Vector3.up;
         SpawnMissile(direction);
-        //SpawnFlash(direction);
     }
     private void SpawnMissile(Vector3 direction)
     {
         GameObject missileInstance = Instantiate(missile, missleSpawnPosition.position, Quaternion.identity);
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        missileInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
+        missileInstance.transform.rotation = Quaternion.Euler(0, 0, 0); // Không xoay theo chuột nữa
         Rigidbody2D rb = missileInstance.GetComponent<Rigidbody2D>();
+
         if (rb != null)
         {
-            rb.linearVelocity = direction * missileSpeed;
+            rb.linearVelocity = direction * missileSpeed; // Bắn thẳng lên trên
         }
 
-        GameManager.instance.RegisterMissile(missileInstance);
+        GameManager.instance?.RegisterMissile(missileInstance);
         Destroy(missileInstance, destroyTime);
     }
 
-    //private void SpawnFlash(Vector3 direction)
-    //{
-    //    GameObject muzzleFlashInstance = Instantiate(GameManager.instance.MuzzleEffect, FlashSpawnPoint.position, Quaternion.identity);
-    //    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-    //    muzzleFlashInstance.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-    //    Destroy(muzzleFlashInstance, despawnTime);
-    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))  
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             GameManager.instance.OnPlayerHit();
             GameObject explosionEffect = Instantiate(GameManager.instance.explosion, transform.position, transform.rotation);
