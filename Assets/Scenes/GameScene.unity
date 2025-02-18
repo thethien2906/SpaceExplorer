@@ -288,10 +288,10 @@ MonoBehaviour:
   - {fileID: 6927771598995841163, guid: 191eaccebe225e44c8399f166bd67bb8, type: 3}
   - {fileID: 997177331561096346, guid: c395dbb9e5df59f4eb3109df9373ab0a, type: 3}
   - {fileID: 3522479429075266867, guid: 64d3e49b3cacf7144a0db62ae90d327c, type: 3}
-  ExistTime: 20
-  SpawnLevel: 20
-  spawnRate: 20
-  spawnRadius: 20
+  ExistTime: 10
+  SpawnLevel: 5
+  spawnRate: 5
+  spawnRadius: 5
   minSpawnRadius: 5
   maxLives: 3
   invincibilityDuration: 2

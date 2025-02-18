@@ -8,16 +8,21 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemyRefab;
     public float ExistTime = 20f;
     public float SpawnLevel;
+    public float ExistTime = 20f;
+    public float SpawnLevel;
     public float spawnRate;
     public float spawnRadius = 20f;
     public float minSpawnRadius = 10f;
 
 
+
     [Header("Game Settings")]
+    public int maxLives = 3;
     public int maxLives = 3;
     private int currentLives;
     public float invincibilityDuration = 2f;
     private bool isPlayerInvincible = false;
+
 
 
     [Header("Particle Effects")]
@@ -29,8 +34,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
 
     // Luu vi tri ban dau
+    // Luu vi tri ban dau
     private Vector3 initialPlayerPosition;
     private Quaternion initialPlayerRotation;
+
 
 
     private GameObject player;
@@ -39,7 +46,9 @@ public class GameManager : MonoBehaviour
     public GameObject TrackingPosition;
 
     // List to keep track of spawned enemies
+    // List to keep track of spawned enemies
     private List<GameObject> activeEnemies = new List<GameObject>();
+    // List to keep track of missles
     // List to keep track of missles
     private List<GameObject> activeMissiles = new List<GameObject>();
     private void Awake()
@@ -49,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // Store the initial player position and rotation
         // Store the initial player position and rotation
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -68,6 +78,7 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale != 0f)
         {
             TimeController.timeValue += Time.deltaTime;  // Cập nhật thời gian khi game không pause
+            TimeController.timeValue += Time.deltaTime;  // Cập nhật thời gian khi game không pause
         }
     }
 
@@ -77,6 +88,7 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         gameOverPanel.SetActive(false);
         Time.timeScale = 0f;
+        currentLives = maxLives;
         currentLives = maxLives;
         CancelInvoke("IntantianteEnemy");
         InvokeRepeating("IntantianteEnemy", 1f, 2f);
