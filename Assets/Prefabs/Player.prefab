@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 2159365090005561621}
   - component: {fileID: 543704191818510936}
   - component: {fileID: 5887823227687269053}
+  - component: {fileID: 2659893894666617137}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -236,7 +237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
-  speed: 10
   missile: {fileID: 5141878358151386387, guid: 5ddcc5238c62e144794a64bcb91f0b51, type: 3}
   missleSpawnPosition: {fileID: 6487699827699741560}
   destroyTime: 5
@@ -268,3 +268,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2659893894666617137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4807897251194675216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6ffc71cdd0fee409b18520167f4eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
