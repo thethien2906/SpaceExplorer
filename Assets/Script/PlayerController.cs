@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 direction = Vector3.up;
         SpawnMissile(direction);
+        AudioManager.instance.PlaySFX(0);
     }
     private void SpawnMissile(Vector3 direction)
     {
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+            AudioManager.instance.PlaySFX(1);
         }
     }
 }
