@@ -105,6 +105,11 @@ MonoBehaviour:
   minSpeed: 2
   maxSpeed: 5
   rotationSpeed: 30
+  rotationSmoothness: 5
+  PowerOrd: {fileID: 6933789120295769788, guid: 43fd1fbe7c68fa24ba83d5ec148719c6, type: 3}
+  LifeOrd: {fileID: 767614509689707133, guid: f14bb6384e7dd6647ba0bff043f8ccaf, type: 3}
+  LifeOrdDropRate: 0.1
+  PowerOrdDropRate: 0.1
 --- !u!61 &2600709502487643172
 BoxCollider2D:
   m_ObjectHideFlags: 0

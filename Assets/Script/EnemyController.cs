@@ -11,6 +11,13 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 targetPosition;
 
+    [Header("Drop Item")]
+    public GameObject PowerOrd;
+    public GameObject LifeOrd;
+    public float LifeOrdDropRate = 0.01f;
+    public float PowerOrdDropRate = 0.1f;
+
+    public static bool isReset = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,5 +55,30 @@ public class EnemyController : MonoBehaviour
             Vector2 normal = collision.transform.up;
             rb.linearVelocity = Vector2.Reflect(rb.linearVelocity, normal);
         }
+    }
+    void OnDestroy()
+    {
+        // Nếu game đã kết thúc, không sinh vật phẩm
+        if (GameManager.instance != null && GameManager.instance.isGameOver)
+        {
+            Debug.Log("Game Over - Không sinh vật phẩm.");
+            return;
+        }
+
+        if (Random.value <= PowerOrdDropRate)
+        {
+            GameObject ordInstantiate = Instantiate(PowerOrd, transform.position, Quaternion.identity);
+            GameManager.instance?.RegisterOrd(ordInstantiate);
+        }
+        else if (Random.value <= LifeOrdDropRate)
+        {
+            GameObject ordInstantiate = Instantiate(LifeOrd, transform.position, Quaternion.identity);
+            GameManager.instance?.RegisterOrd(ordInstantiate);
+        }
+    }
+
+    public static void ChangeIsReset()
+    {
+        isReset = !isReset;
     }
 }
