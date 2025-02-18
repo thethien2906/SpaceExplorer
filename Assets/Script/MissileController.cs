@@ -19,7 +19,6 @@ public class MissileController : MonoBehaviour
             Destroy(gm, 2f);
             Destroy(gameObject); // Destroy the missile
             Destroy(collision.gameObject); // Destroy the enemy
-            AudioManager.instance.PlaySFX(1);
         }
     }
 }

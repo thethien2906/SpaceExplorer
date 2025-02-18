@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
         currentLives = maxLives;
         CancelInvoke("IntantianteEnemy");
         InvokeRepeating("IntantianteEnemy", 1f, 2f);
-        AudioManager.instance.PlayBGM(0);
     }
 
     public void OnPlayerHit()
@@ -123,7 +122,6 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         CancelInvoke("IntantianteEnemy");
         TimeController.timeValue = 0f;
-        AudioManager.instance.PlayBGM(2);
     }
     void IntantianteEnemy()
     {
@@ -229,7 +227,6 @@ public class GameManager : MonoBehaviour
         startMenu.SetActive(false);
         gameOverPanel.SetActive(false);
         Time.timeScale = 1f;
-        AudioManager.instance.PlayBGM(1);
     }
 
     public void PauseGame(bool isPaused)
@@ -238,13 +235,11 @@ public class GameManager : MonoBehaviour
         {
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
-            AudioManager.instance.AdjustBGMForPause(true);
         }
         else
         {
             pauseMenu.SetActive(false);
             Time.timeScale = 1f;
-            AudioManager.instance.AdjustBGMForPause(false);
         }
     }
 
@@ -260,8 +255,6 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         gameOverPanel.SetActive(false);
         Time.timeScale = 0f;
-        AudioManager.instance.PlayBGM(0);
-
     }
 
     public int GetCurrentLives()
