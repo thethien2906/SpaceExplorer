@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     private float turnInput;
 
     [Header("Movement")]
-    public float speed = 10f;
     public GameObject missile;
     public Transform missleSpawnPosition;
     public float destroyTime = 5f;
@@ -30,39 +29,29 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        InvokeRepeating(nameof(FireMissile), 1.5f, fireRate); // ban lien tuc
     }
     private void Update()
     {
         PlayerAnimation();
         PlayerMovement();
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
+        if (Time.time >= nextFireTime)
         {
             FireMissile();
-            nextFireTime = Time.time + fireRate;
+            nextFireTime = Time.time + GameManager.instance.fireRate;
         }
-    }
-
-    private void PlayerShoot()
-    {
-
-        GameObject gm = Instantiate(missile, missleSpawnPosition.position, Quaternion.identity);
-        gm.transform.SetParent(null);
-        Destroy(gm, destroyTime);
-
     }
 
     private void PlayerAnimation()
     {
         anim.SetBool("isMoving", rb.linearVelocity.x != 0);
-        turnInput = Input.GetAxis("Horizontal"); // Get A/D or Left/Right Arrow input
+        turnInput = Input.GetAxis("Horizontal");
         anim.SetFloat("Turn", turnInput);
     }
     private void PlayerMovement()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(horizontal, vertical).normalized * speed;
+        Vector2 movement = new Vector2(horizontal, vertical).normalized * GameManager.instance.playerSpeed;
         rb.linearVelocity = movement;
 
     }
@@ -70,6 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 direction = Vector3.up;
         SpawnMissile(direction);
+        AudioManager.instance.PlaySFX(0);
     }
     private void SpawnMissile(Vector3 direction)
     {
@@ -100,6 +90,7 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+            AudioManager.instance.PlaySFX(1);
         }
     }
 }
